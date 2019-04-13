@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HearOut</string>
+
+
+    <string name="starter">Hello World LOL</string>
+
+
 </resources>
