@@ -11,8 +11,8 @@
     <!--microphone detects the given name.-->
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick='sendOnChannel1'
-        android:text="Button to activate Noti for testing" />
+    android:layout_height="wrap_content"
+    android:onClick='sendOnChannel1'
+    android:text="Button to activate Noti for testing" />
 
-</LinearLayout>
+    </LinearLayout>

@@ -12,13 +12,11 @@ import android.support.v4.app.NotificationCompat;
 
 public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
-    private EditText editTextTitle;
-    private EditText editTextMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start);
 
         notificationManager = NotificationManagerCompat.from(this);
     }
