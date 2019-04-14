@@ -1,5 +1,7 @@
 package com.hritikaggarwal.hearout;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +12,8 @@ import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +41,9 @@ public class ListeningPage extends AppCompatActivity {
     private MediaPlayer notificationPlayer;
     private RelativeLayout layout;
     private ToggleButton recordButton;
+    private Context context;
     String retrieveName = "";
+    private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +56,7 @@ public class ListeningPage extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.NameDisplay);
         textView.setText(retrieveName);
-
+        context = this;
         notificationPlayer = MediaPlayer.create(this, R.raw.notification);
         layout = findViewById(R.id.layout);
         recordButton = findViewById(R.id.startListening);
@@ -61,9 +67,6 @@ public class ListeningPage extends AppCompatActivity {
                 .getAbsolutePath();
         String modelFilePath = new File(this.getFilesDir(), "params.pv").getAbsolutePath();
         float sensitivity = 0.5f;
-
-        // vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        // vibrator.vibrate(VibrationEffect.createOneShot(10000, 255));
 
     }
 
@@ -124,12 +127,54 @@ public class ListeningPage extends AppCompatActivity {
 //                            layout.setBackgroundColor(Color.TRANSPARENT);
 //                        }
 //                    }.start();
+                        notificationManager = NotificationManagerCompat.from(context);
+
+                        String title = "Somebody's calling you!";
+                        String message = "Tap to Hear them out";
+                        Intent intent = new Intent(context, ListeningPage.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        Notification notification = new NotificationCompat.Builder(context, App.CHANNEL_1_ID)
+                                .setSmallIcon(R.drawable.ic_hearout)
+                                .setContentTitle(title)
+                                .setContentText(message)
+                                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                .setAutoCancel(true)
+                                .setContentIntent(pendingIntent)
+                                .build();
+
+
+                        notificationManager.notify(1, notification);
+
                         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                        vibrator.vibrate(VibrationEffect.createOneShot(10000, 255));
+                        vibrator.vibrate(VibrationEffect.createOneShot(5000, 255));
                 }
                 });
             }
         });
+    }
+
+    public void sendOnChannel1(View v) {
+        String title = "Somebody's calling you!";
+        String message = "Tap to Hear them out";
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_hearout)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build();
+
+
+        notificationManager.notify(1, notification);
     }
 
     /**

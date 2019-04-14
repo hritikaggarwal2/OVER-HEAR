@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.start);
         notificationManager = NotificationManagerCompat.from(this);
 
-
         Button btn = (Button) findViewById(R.id.button);
 
 
