@@ -136,7 +136,7 @@ public class ListeningPage extends AppCompatActivity {
                         notificationManager = NotificationManagerCompat.from(context);
 
                         String title = "Somebody's calling you!";
-                        String message = "Tap to Hear them out";
+                        String message = "Tap to see what they are saying";
                         Intent intent = new Intent(context, listing.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
