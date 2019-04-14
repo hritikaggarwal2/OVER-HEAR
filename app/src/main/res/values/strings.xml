@@ -11,4 +11,7 @@
     <string name="setup_input">Enter Your Name</string>
     <string name="setup_button">START USING</string>
 
+
+    <string name="send_to">Take a note : </string>
+
 </resources>
