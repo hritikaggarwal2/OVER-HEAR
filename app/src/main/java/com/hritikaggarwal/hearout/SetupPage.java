@@ -2,6 +2,7 @@ package com.hritikaggarwal.hearout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,19 +27,20 @@ public class SetupPage extends AppCompatActivity {
             public void onClick(View view) {
                 //Start your second activity
                 Intent intent = new Intent(SetupPage.this, ListeningPage.class);
-
                 // Taking the name to the next page
                 EditText editText = (EditText) findViewById(R.id.editText);
-
-                // writing into the internal storage of the file
-                String filename = "myfile";
-                String fileContents = editText.getText().toString();
-                FileOutputStream outputStream;
-                if (FileHelper.saveToFile(fileContents)) {
-                    Toast.makeText(SetupPage.this, "Saved to file", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SetupPage.this, "Error save file!!!", Toast.LENGTH_SHORT).show();
-                }
+                String name = editText.getText().toString();
+                SharedPreferences prefs = getSharedPreferences("com.hritikaggarwal.hearout", Context.MODE_PRIVATE);
+                prefs.edit().putString("name", name).apply();
+//                // writing into the internal storage of the file
+//                String filename = "myfile";
+//                String fileContents = editText.getText().toString();
+//                FileOutputStream outputStream;
+//                if (FileHelper.saveToFile(fileContents)) {
+//                    Toast.makeText(SetupPage.this, "Saved to file", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(SetupPage.this, "Error save file!!!", Toast.LENGTH_SHORT).show();
+//                }
                 startActivity(intent);
             }
         });
