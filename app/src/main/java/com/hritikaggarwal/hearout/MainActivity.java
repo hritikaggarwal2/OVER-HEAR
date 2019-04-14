@@ -14,9 +14,9 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
-    Button button;
+    Button startVibration;
     Vibrator vibrator;
-    Button button2;
+    Button endVibration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +37,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.startVibrateButton);
+        startVibration = findViewById(R.id.startVibrateButton);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        button.setOnClickListener(new View.OnClickListener() {
+        startVibration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vibrator.vibrate(VibrationEffect.createOneShot(10000, 255));
             }
         });
 
-        button2 = findViewById(R.id.stopVibrateButton);
-        button2.setOnClickListener(new View.OnClickListener() {
+        endVibration = findViewById(R.id.stopVibrateButton);
+        endVibration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 vibrator.cancel();
