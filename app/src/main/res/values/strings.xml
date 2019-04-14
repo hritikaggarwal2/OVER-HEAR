@@ -7,4 +7,11 @@
     <string name="home_button_option2">START</string>
 
 
+    <!-- SETUP PAGE -->
+    <string name="setup_header">Just one more step and you are good to go!</string>
+    <string name="setup_input">Enter Your Name</string>
+    <string name="setup_button">START USING</string>
+
+
+
 </resources>
