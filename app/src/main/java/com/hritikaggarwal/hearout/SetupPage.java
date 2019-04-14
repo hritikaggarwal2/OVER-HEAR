@@ -32,15 +32,6 @@ public class SetupPage extends AppCompatActivity {
                 String name = editText.getText().toString();
                 SharedPreferences prefs = getSharedPreferences("com.hritikaggarwal.hearout", Context.MODE_PRIVATE);
                 prefs.edit().putString("name", name).apply();
-//                // writing into the internal storage of the file
-//                String filename = "myfile";
-//                String fileContents = editText.getText().toString();
-//                FileOutputStream outputStream;
-//                if (FileHelper.saveToFile(fileContents)) {
-//                    Toast.makeText(SetupPage.this, "Saved to file", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(SetupPage.this, "Error save file!!!", Toast.LENGTH_SHORT).show();
-//                }
                 startActivity(intent);
             }
         });
