@@ -49,7 +49,7 @@ public class FileHelper {
 
     public static boolean saveToFile( String data){
         try {
-            new File(path  ).mkdir();
+            new File(path).mkdir();
             File file = new File(path+ fileName);
             if (!file.exists()) {
                 file.createNewFile();
