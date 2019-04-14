@@ -1,8 +1,12 @@
 package com.hritikaggarwal.hearout;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +37,9 @@ public class SetupPage extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("com.hritikaggarwal.hearout", Context.MODE_PRIVATE);
                 prefs.edit().putString("name", name).apply();
                 startActivity(intent);
+                finishAffinity();
             }
         });
+
     }
 }

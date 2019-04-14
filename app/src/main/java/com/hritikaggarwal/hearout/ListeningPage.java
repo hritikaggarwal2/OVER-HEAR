@@ -2,6 +2,8 @@ package com.hritikaggarwal.hearout;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,24 +13,31 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import ai.picovoice.porcupine.Porcupine;
 import ai.picovoice.porcupinemanager.KeywordCallback;
@@ -42,6 +51,7 @@ public class ListeningPage extends AppCompatActivity {
     private RelativeLayout layout;
     private ToggleButton recordButton;
     private Context context;
+
     String retrieveName = "";
     private NotificationManagerCompat notificationManager;
     @Override
@@ -68,31 +78,26 @@ public class ListeningPage extends AppCompatActivity {
         String modelFilePath = new File(this.getFilesDir(), "params.pv").getAbsolutePath();
         float sensitivity = 0.5f;
 
-    }
 
-    /**
-     * Handler for the record button. Processes the audio and uses Porcupine library to detect the
-     * keyword. It increments a counter to indicate the occurrence of a keyword.
-     * @param view ToggleButton used for recording audio.
-     */
-    public void process(View view) {
+
         try {
-            if (recordButton.isChecked()) {
-                // check if record permission was given.
-                if (Utils.hasRecordPermission(this)) {
-                    porcupineManager = initPorcupine();
-                    porcupineManager.start();
-
-                } else {
-                    Utils.showRecordPermission(this);
-                }
+            // check if record permission was given.
+            if (Utils.hasRecordPermission(this)) {
+                porcupineManager = initPorcupine();
+                porcupineManager.start();
             } else {
-                porcupineManager.stop();
+                Utils.showRecordPermission(this);
             }
         } catch (PorcupineManagerException e) {
             Utils.showErrorToast(this);
         }
+
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
+
 
     /**
      * Initialize the porcupineManager library.
@@ -127,11 +132,12 @@ public class ListeningPage extends AppCompatActivity {
 //                            layout.setBackgroundColor(Color.TRANSPARENT);
 //                        }
 //                    }.start();
+
                         notificationManager = NotificationManagerCompat.from(context);
 
                         String title = "Somebody's calling you!";
                         String message = "Tap to Hear them out";
-                        Intent intent = new Intent(context, ListeningPage.class);
+                        Intent intent = new Intent(context, listing.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -149,7 +155,19 @@ public class ListeningPage extends AppCompatActivity {
                         notificationManager.notify(1, notification);
 
                         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                        vibrator.vibrate(VibrationEffect.createOneShot(5000, 255));
+                        vibrator.vibrate(VibrationEffect.createOneShot(2000, 255));
+
+                        try {
+                            // check if record permission was given.
+                            if (Utils.hasRecordPermission(context)) {
+                                porcupineManager.stop();
+                            } else {
+                                Utils.showRecordPermission(ListeningPage.this);
+                            }
+                        } catch (PorcupineManagerException e) {
+                            Utils.showErrorToast(context);
+                        }
+
                 }
                 });
             }
@@ -200,5 +218,6 @@ public class ListeningPage extends AppCompatActivity {
             }
         }
     }
+
 
 }

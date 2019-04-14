@@ -7,6 +7,7 @@
     android:id="@+id/layout"
     tools:context=".MainActivity">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,8 +22,7 @@
         android:id="@+id/startListening"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -30,9 +30,11 @@
         android:onClick="process"
         android:textColor="@android:color/white"
         android:textOff="Start"
+
         android:textOn="Stop"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NameDisplay"
         tools:layout_editor_absoluteX="145dp" />
