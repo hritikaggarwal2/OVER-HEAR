@@ -3,7 +3,8 @@
 
 
     <string name="starter">Hello World LOL</string>
-    <string name="title_activity_setup_page">SetupPage</string>
+    <string name="home_button_option1">SETUP</string>
+    <string name="home_button_option2">START</string>
 
 
 </resources>
