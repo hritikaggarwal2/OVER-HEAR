@@ -25,4 +25,15 @@
         android:layout_height="wrap_content"
         android:text="@string/home_button_option1" />
 
+    <Button
+        android:id="@+id/startVibrateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start vibration" />
+    <Button
+        android:id="@+id/stopVibrateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Vibration" />
+
 </LinearLayout>

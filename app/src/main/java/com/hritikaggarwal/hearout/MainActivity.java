@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start);
 
         Button btn = (Button) findViewById(R.id.button);
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.startVibrateButton);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button2 = findViewById(R.id.button3);
+        button2 = findViewById(R.id.stopVibrateButton);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
